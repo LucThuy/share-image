@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="fragment::head">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div th:insert="fragment::preloader">
+    </div>
+
+    <!-- Header Section Begin -->
+    <header th:insert="fragment::header">
+    </header>
+    <!-- Header End -->
+
+    <!-- Normal Breadcrumb Begin -->
+    <section class="normal-breadcrumb set-bg" th:data-setbg="@{img/normal-breadcrumb.jpg}">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="normal__breadcrumb__text" th:unless="${param.success}">
+                        <h2>Signup</h2>
+                        <p>Welcome to the official Anime blog.</p>
+                    </div>
+                    <div class="normal__breadcrumb__text" th:if="${param.success}">
+                        <h2>Signup success</h2>
+                        <a th:href="@{/login}" class="site-btn">Login Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Normal Breadcrumb End -->
+
+    <!-- Signup Section Begin -->
+    <section class="signup spad">
+        <div class="container">
+            <div class="row" th:unless="${param.success}">
+                <div class="col-lg-6">
+                    <div class="login__form">
+                        <h3>Signup</h3>
+                        <form th:action="@{/signup}" th:object="${newUser}" method="POST" enctype="multipart/form-data">
+                        	<div class="mb-3">
+                        		<img class="preview-image mb-1"> 
+                        		<input type="file" accept="image/*" name="image" class="input-image" >
+                        	</div>
+                        	<div class="input__item">
+                                <input type="text" th:field="*{name}" placeholder="Name">
+                                <span class="icon_profile"></span>
+                            </div>
+                            <div class="input__item">
+                                <input type="text" th:field="*{username}" placeholder="Username">
+                                <span class="icon_mail"></span>
+                            </div>
+                            <div class="input__item">
+                                <input type="text" th:field="*{password}" placeholder="Password">
+                                <span class="icon_lock"></span>
+                            </div>
+                            <button type="submit" class="site-btn">Register Now</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="login__register">
+                        <h3>Already have an account?</h3>
+                        <a th:href="@{/login}" class="primary-btn">Login Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Signup Section End -->
+
+    <!-- Footer Section Begin -->
+    <footer th:insert="fragment::footer">
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Search model Begin -->
+    <div th:insert="fragment::search-model">
+	</div>
+    <!-- Search model end -->
+
+    <!-- Js Plugins -->
+    <script th:src="@{js/jquery-3.3.1.min.js}"></script>
+	<script th:src="@{js/bootstrap.min.js}"></script>
+	<script th:src="@{js/player.js}"></script>
+	<script th:src="@{js/jquery.nice-select.min.js}"></script>
+	<script th:src="@{js/mixitup.min.js}"></script>
+	<script th:src="@{js/jquery.slicknav.js}"></script>
+	<script th:src="@{js/owl.carousel.min.js}"></script>
+	<script th:src="@{js/main.js}"></script>
+
+
+</body>
+
+</html>

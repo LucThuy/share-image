@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="fragment::head">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div th:insert="fragment::preloader">
+    </div>
+
+    <!-- Header Section Begin -->
+    <header th:insert="fragment::header">
+    </header>
+    <!-- Header End -->
+    
+    <!-- Normal Breadcrumb Begin -->
+    <section class="normal-breadcrumb set-bg user" th:data-setbg="@{/img/normal-breadcrumb.jpg}">
+        <div class="container">
+        	<form th:unless="${userView}" th:action="@{/user/__${user.id}__}" th:object="${user}" method="POST" enctype="multipart/form-data">
+	            <div class="row">
+		            <div class="col-lg-4 text-center">
+		            	<img th:unless="${edit}" class="avatar" alt="" th:src="@{/__*{avatar}__}">
+		            	<img th:if="${edit}" class="preview-image" alt="" th:src="@{/__*{avatar}__}">
+		            	<input th:if="${edit}" class="input-image" type="file" name="image" accept="image/*">
+		            </div>
+	                <div class="col-lg-6 position__breadcrumb__text">
+	                    <div class="normal__breadcrumb__text position__breadcrumb__text-child">
+	                        <h2 th:unless="${edit}" th:text="*{name}">Our Blog</h2>
+	                        <input th:if="${edit}" class="edit__item edit__item-h2" type="text" th:field="*{name}">
+	                        <p th:unless="${edit}" th:text="*{bio}"></p>
+            				<textarea th:if="${edit}" class="edit__item edit__item-p" th:field="*{bio}" rows="3"></textarea>
+	                    </div>
+	                </div>
+	            </div>
+            </form>
+            <div th:if="${userView}" th:object="${userView}" class="row">
+		            <div class="col-lg-4 text-center">
+		            	<img class="avatar" alt="" th:src="@{/__*{avatar}__}">
+		            </div>
+	                <div class="col-lg-6 position__breadcrumb__text">
+	                    <div class="normal__breadcrumb__text position__breadcrumb__text-child">
+	                        <h2 th:text="*{name}">Our Blog</h2>
+	                        <p th:text="*{bio}"></p>
+	                    </div>
+	                </div>
+	            </div>
+        </div>
+    </section>
+    <!-- Normal Breadcrumb End -->
+
+    <!-- Blog Section Begin -->
+    <section class="blog spad user">
+        <div class="container">
+        	<form th:action="@{/image-add/__${user.id}__}" th:object="${image}" method="POST" enctype="multipart/form-data">
+        		<div class="row">
+            		<div class="col-lg-5 text-center">
+            			<img class="post preview-image mb-1">
+            			<input type="file" name="image" accept="image/*" class="input-image">
+            		</div>
+            		<div class="col-lg-5">
+            			<input class="title" type="text" th:field="*{title}" placeholder="Title">
+            			<textarea class="detail" th:field="*{detail}" placeholder="Detail" rows="5"></textarea>
+            		</div>
+            	</div>
+            	<div>
+            		<div class="col-lg-2 offset-lg-10 btn__list">
+            			<ul class="list-group list-group-horizontal text_link">
+	            			<li class="list-group-item"><button type="submit" class="save">Save</button></li>
+	            			<li class="list-group-item"><a th:href="@{/user/__${user.id}__}" class="cancel">Cancel</a></li>
+	            		</ul>
+            		</div>
+            	</div>
+        	</form>
+        </div>
+    </section>
+    <!-- Blog Section End -->
+
+    <!-- Footer Section Begin -->
+    <footer th:insert="fragment::footer">
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Search model Begin -->
+    <div th:insert="fragment::search-model">
+	</div>
+    <!-- Search model end -->
+
+    <!-- Js Plugins -->
+    <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/player.js}"></script>
+	<script th:src="@{/js/jquery.nice-select.min.js}"></script>
+	<script th:src="@{/js/mixitup.min.js}"></script>
+	<script th:src="@{/js/jquery.slicknav.js}"></script>
+	<script th:src="@{/js/owl.carousel.min.js}"></script>
+	<script th:src="@{/js/main.js}"></script>
+
+</body>
+
+</html>

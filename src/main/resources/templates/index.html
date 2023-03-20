@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="fragment::head">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div th:insert="fragment::preloader">
+    </div>
+
+     <!-- Header Section Begin -->
+    <header th:insert="fragment::header">
+    </header>
+    <!-- Header End -->
+    
+    <!-- Hero Section Begin -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero__slider owl-carousel">
+                <div class="hero__items set-bg" th:data-setbg="@{/__${image.uri}__}" th:each="image: ${sliderImages}">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="hero__text">
+                                <h2 th:text="${image.title}"></h2>
+                                <p th:text="${image.detail}"></p>
+                                <p class="sign">by
+                                	<a th:unless="${user}" th:href="@{/user-view?idu=__${image.user.id}__}" th:text="${image.user.name}"></a>
+                                	<a th:if="${user}" th:href="@{/user-view/__${user.id}__?idu=__${image.user.id}__}" th:text="${image.user.name}"></a>
+                                </p>
+                                <a th:unless="${user}" th:href="@{/image-view?idi=__${image.id}__}"><span>View Image</span> <i class="fa fa-angle-right"></i></a>
+                                <a th:if="${user}" th:href="@{/image-view/__${user.id}__?idi=__${image.id}__}"><span>View Image</span> <i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+    
+    <!-- Product Section Begin -->
+    <section class="product spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="trending__product">
+                        <div class="row">
+                            <div class="col-lg-8 col-md-8 col-sm-8">
+                                <div class="section-title">
+                                    <h4>New images</h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4">
+                                <div class="btn__all">
+                                    <a href="#" class="primary-btn">View All <span class="arrow_right"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6 col-sm-6" th:each="image: ${trendingNowImages}">
+                                <div class="product__item">
+                                    <div class="product__item__pic set-bg" th:data-setbg="@{/__${image.uri}__}">
+                                        <div class="comment"><i class="fa fa-comments"></i> <span th:text="${image.getNumberOfComment}"></span></div>
+                                        <div class="view"><i class="fa fa-eye"></i> <span th:text="${image.views.size()}"></span></div>
+                                    </div>
+                                    <div class="product__item__text">
+                                        <h5>
+                                            <a th:unless="${user}" th:href="@{/image-view?idi=__${image.id}__}" th:text="${image.title}"></a>
+                                        	<a th:if="${user}" th:href="@{/image-view/__${user.id}__?idi=__${image.id}__}" th:text="${image.title}"></a>
+                                        </h5>
+                                        <p class="sign">by
+		                                	<a th:unless="${user}" th:href="@{/user-view?idu=__${image.user.id}__}" th:text="${image.user.name}"></a>
+		                                	<a th:if="${user}" th:href="@{/user-view/__${user.id}__?idu=__${image.user.id}__}" th:text="${image.user.name}"></a>
+		                                </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+   					</div>
+    			</div>
+    			<div class="col-lg-4 col-md-6 col-sm-8">
+                    <div class="product__sidebar">
+                        <div class="product__sidebar__view">
+                            <div class="section-title">
+                                <h5>Top Views</h5>
+                            </div>
+                            <div class="row" th:each="image: ${topViewsImages}">
+                            	<div class="col-12">
+	                            	<div class="product__sidebar__view__item set-bg"
+		                                th:data-setbg="@{/__${image.uri}__}">
+		                                <div class="view"><i class="fa fa-eye"></i> <span th:text="${image.views.size()}"></span></div>
+		                                <div class="name">
+			                                <h5>
+		                                        <a th:unless="${user}" th:href="@{/image-view?idi=__${image.id}__}" th:text="${image.title}"></a>
+		                                    	<a th:if="${user}" th:href="@{/image-view/__${user.id}__?idi=__${image.id}__}" th:text="${image.title}"></a>
+		                                    </h5>
+		                                </div>
+				                    </div>
+                            	</div>
+                            </div>
+		                </div>
+            		</div>
+    			</div>
+    		</div>
+    	</div>
+    </section>
+    <!-- Product Section End -->
+    
+	<!-- Footer Section Begin -->
+    <footer th:insert="fragment::footer">
+    </footer>
+    <!-- Footer Section End -->
+
+	<!-- Search model Begin -->
+	<div th:insert="fragment::search-model">
+	</div>
+	<!-- Search model end -->
+
+<!-- Js Plugins -->
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/player.js}"></script>
+<script th:src="@{/js/jquery.nice-select.min.js}"></script>
+<script th:src="@{/js/mixitup.min.js}"></script>
+<script th:src="@{/js/jquery.slicknav.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+
+
+</body>
+
+</html>

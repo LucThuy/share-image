@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="fragment::head">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div th:insert="fragment::preloader">
+    </div>
+
+    <!-- Header Section Begin -->
+    <header th:insert="fragment::header">
+    </header>
+    <!-- Header End -->
+    
+    <!-- Normal Breadcrumb Begin -->
+    <section class="normal-breadcrumb image-view set-bg" th:data-setbg="@{/img/normal-breadcrumb.jpg}">
+        <div class="container">
+	        <form th:unless="${imageView}" th:action="@{/image/__${user.id}__?idi=__${image.id}__}" th:object="${image}" method="POST" enctype="multipart/form-data">
+	      	 	<div class="row">
+	            	<div class="col-lg-4 text-center">
+	            		<img th:unless="${edit}" class="big-image" alt="" th:src="@{/__*{uri}__}">
+		            	<img th:if="${edit}" class="preview-image big-image" alt="" th:src="@{/__*{uri}__}">
+		            	<input th:if="${edit}" class="input-image" type="file" name="image" accept="image/*">
+	            	</div>
+	            	<div class="col-lg-6 positon__breadcrumb__text">
+	                    <div class="normal__breadcrumb__text position__breadcrumb__text-child">
+	                        <h2 th:unless="${edit}" th:text="*{title}"></h2>
+	                        <input th:if="${edit}" class="edit__item edit__item-h2" type="text" th:field="*{title}">
+	                        <p th:unless="${edit}" th:text="*{detail}"></p>
+	                        <textarea th:if="${edit}" class="edit__item edit__item-p" th:field="*{detail}" rows="5"></textarea>
+	                        <p class="sign">by
+                            	<a th:unless="${user}" th:href="@{/user-view?idu=__${image.user.id}__}" th:text="${image.user.name}"></a>
+                            	<a th:if="${user}" th:href="@{/user-view/__${user.id}__?idu=__${image.user.id}__}" th:text="${image.user.name}"></a>
+                            	 at 
+                            	<i th:text="${#temporals.format(image.createTime, 'dd-MM-yyyy HH:mm')}"></i>
+                            </p>
+	                    </div>
+	                </div>
+	                <div class="col-lg-2 align-self-end">
+	                	<div class="btn__list">
+	            			<ul th:unless="${edit}" class="list-group list-group-horizontal">
+	            				<li class="list-group-item"><a th:href="@{/image-edit/__${user.id}__?idi=__${image.id}__}"><span class="icon_pencil"></span></a></li>
+	            				<li class="list-group-item"><a th:href="@{/image-delete/__${user.id}__?idi=__${image.id}__}"><span class="icon_trash"></span></a></li>
+	            			</ul>
+	            			<ul th:if="${edit}" class="list-group list-group-horizontal text_link">
+	            				<li class="list-group-item"><button type="submit" class="save">Save</button></li>
+	            				<li class="list-group-item"><a th:href="@{/image/__${user.id}__?idi=__${image.id}__}" class="cancel">Cancel</a></li>
+	            			</ul>
+	            		</div>
+	                </div>
+	            </div>
+	        </form>
+	        <div th:if="${imageView}" class="row">
+        		<div class="col-lg-4 text-center">
+            		<img class="big-image" alt="" th:src="@{/__${imageView.uri}__}">
+	            </div>
+	            <div class="col-lg-6 positon__breadcrumb__text">
+                    <div class="normal__breadcrumb__text position__breadcrumb__text-child">
+                        <h2 th:text="${imageView.title}"></h2>
+                        <p th:text="${imageView.detail}"></p>
+                        <p class="sign">by
+                           	<a th:unless="${user}" th:href="@{/user-view?idu=__${imageView.user.id}__}" th:text="${imageView.user.name}"></a>
+                           	<a th:if="${user}" th:href="@{/user-view/__${user.id}__?idu=__${imageView.user.id}__}" th:text="${imageView.user.name}"></a>
+                           	 at 
+                           	<i th:text="${#temporals.format(imageView.createTime, 'dd-MM-yyyy HH:mm')}"></i>
+                        </p>
+                    </div>
+                </div>
+	            <div th:if="${user}" class="col-lg-2 align-self-end">
+                	<div class="btn__list">
+            			<ul class="list-group list-group-horizontal">
+            				<li class="list-group-item">
+            					<a th:if="${view.rect == 1}" th:href="@{/view-edit/__${user.id}__?idi=__${imageView.id}__&rect=0}"><span class="icon_like_alt"></span></a>
+            					<a th:unless="${view.rect == 1}" th:href="@{/view-edit/__${user.id}__?idi=__${imageView.id}__&rect=1}"><span class="icon_like"></span></a>
+            				</li>
+							<li class="list-group-item">
+            					<a th:if="${view.rect == -1}" th:href="@{/view-edit/__${user.id}__?idi=__${imageView.id}__&rect=0}"><span class="icon_dislike_alt"></span></a>
+            					<a th:unless="${view.rect == -1}" th:href="@{/view-edit/__${user.id}__?idi=__${imageView.id}__&rect=-1}"><span class="icon_dislike"></span></a>
+            				</li>	            			
+            			</ul>
+            		</div>
+	            </div>
+        	</div>
+        </div>
+    </section>
+    <!-- Normal Breadcrumb End -->
+
+    <!-- Blog Section Begin -->
+    <section class="blog spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 cmt">
+	                <div class="section-title">
+	                	<h4>Comment</h4>
+	                </div>
+                	<form th:if="${user} and ${imageView}" th:action="@{/view-edit/__${user.id}__?idi=__${imageView.id}__}" th:object="${view}" method="POST">
+		                <div class="position__edit__form">
+		                	<a th:href="@{/user-view/__${user.id}__?idu=__${user.id}__}" class="position__name" th:text="${user.name}"></a>
+		                	<img th:src="@{/__${user.avatar}__}" class="avatar_icon position__avatar">
+		               		<input class="position__edit__item" type="text" th:field="*{cmt}">
+		               		<button th:unless="*{cmt != ''}" type="submit" class="position__button btn btn-light ">Post</button>
+		               		<button th:if="*{cmt != ''}" type="submit" class="position__button btn btn-light ">Save</button>
+		                </div>
+		            </form>
+		            <div th:unless="${user}">
+		            	<a th:href="@{/login}">Login</a>
+		            	to comment
+		            </div>
+	                <div class="cmt__list">
+	                	<div th:if="${views.size() > 0}" class="cmt__item" th:each="v: ${views}">
+		                	<div class="position__view__item">
+			                	<a th:unless="${user}" th:href="@{/user-view?idu=__${v.user.id}__}" class="position__view__name" th:text="${v.user.name}"></a>
+			                	<a th:if="${user}" th:href="@{/user-view/__${user.id}__?idu=__${v.user.id}__}" class="position__view__name" th:text="${v.user.name}"></a>
+			                	<img th:src="@{/__${v.user.avatar}__}" class="avatar_icon position__view__avatar">
+			                	<P class="position__view__cmt" th:text="${v.cmt}"></P>
+			                </div>
+	                	</div>
+	                	<div th:unless="${views.size() > 0}">
+	                		<h3>No comments to display</h3>
+	                	</div>
+	                </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-8">
+                    <div class="product__sidebar">
+                        <div class="product__sidebar__view">
+                            <div class="section-title">
+                                <h5>Top Views</h5>
+                            </div>
+                            <div class="row" th:each="image: ${topViewsImages}">
+                            	<div class="col-12">
+	                            	<div class="product__sidebar__view__item set-bg"
+		                                th:data-setbg="@{/__${image.uri}__}">
+		                                <div class="view"><i class="fa fa-eye"></i> <span th:text="${image.views.size()}"></span></div>
+		                                <div class="name">
+			                                <h5>
+		                                        <a th:unless="${user}" th:href="@{/image-view?idi=__${image.id}__}" th:text="${image.title}"></a>
+		                                    	<a th:if="${user}" th:href="@{/image-view/__${user.id}__?idi=__${image.id}__}" th:text="${image.title}"></a>
+		                                    </h5>
+		                                </div>
+				                    </div>
+                            	</div>
+                            </div>
+		                </div>
+            		</div>
+    			</div>
+            </div>
+            
+        </div>
+    </section>
+    <!-- Blog Section End -->
+
+    <!-- Footer Section Begin -->
+    <footer th:insert="fragment::footer">
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Search model Begin -->
+    <div th:insert="fragment::search-model">
+	</div>
+    <!-- Search model end -->
+
+    <!-- Js Plugins -->
+    <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/player.js}"></script>
+	<script th:src="@{/js/jquery.nice-select.min.js}"></script>
+	<script th:src="@{/js/mixitup.min.js}"></script>
+	<script th:src="@{/js/jquery.slicknav.js}"></script>
+	<script th:src="@{/js/owl.carousel.min.js}"></script>
+	<script th:src="@{/js/main.js}"></script>
+	
+</body>
+
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head">
+<meta charset="UTF-8">
+<meta name="description" content="Anime Template">
+<meta name="keywords" content="Anime, unica, creative, html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Projek</title>
+
+<!-- Google Font -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap"
+	rel="stylesheet">
+
+<!-- Css Styles -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"
+	type="text/css">
+<link rel="stylesheet" th:href="@{/css/font-awesome.min.css}"
+	type="text/css">
+<link rel="stylesheet" th:href="@{/css/elegant-icons.css}"
+	type="text/css">
+<link rel="stylesheet" th:href="@{/css/plyr.css}" type="text/css">
+<link rel="stylesheet" th:href="@{/css/nice-select.css}" type="text/css">
+<link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}"
+	type="text/css">
+<link rel="stylesheet" th:href="@{/css/slicknav.min.css}"
+	type="text/css">
+<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+</head>
+
+<body>
+
+	<div id="preloder" th:fragment="preloader">
+		<div class="loader"></div>
+	</div>
+
+	<header class="header" th:fragment="header">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-2">
+					<div class="header__logo">
+						<a th:unless="${user}" th:href="@{/projek}"> <img
+							th:src="@{/img/logo.png}" alt="">
+						</a> <a th:if="${user}" th:href="@{/projek/__${user.id}__}"> <img
+							th:src="@{/img/logo.png}" alt="">
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-8">
+					<!-- <div class="header__nav">
+                        <nav class="header__menu mobile-menu">
+                            <ul>
+                                <li><a th:href="@{/projek}">Homepage</a></li>
+                                <li><a th:href="@{/categories}">Categories <span class="arrow_carrot-down"></span></a>
+                                    <ul class="dropdown">
+                                        <li><a th:href="@{/categories.html}">Categories</a></li>
+                                        <li><a th:href="@{/anime-details.html}">Anime Details</a></li>
+                                        <li><a th:href="@{/anime-watching.html}">Anime Watching</a></li>
+                                        <li><a th:href="@{/blog-details.html}">Blog Details</a></li>
+                                        <li><a th:href="@{/signup.html}">Sign Up</a></li>
+                                        <li><a th:href="@{/login.html}">Login</a></li>
+                                    </ul>
+                                </li>
+                                <li><a th:href="@{/blog}">Our Blog</a></li>
+                                <li><a href="#">Contacts</a></li>
+                            </ul>
+                        </nav>
+                    </div> -->
+				</div>
+				<div class="col-lg-2">
+					<div class="header__right">
+						<!-- <a href="#" class="search-switch"><span class="icon_search"></span></a> -->
+						<a th:unless="${user}" th:href="@{/login}"><span
+							class="icon_profile"></span></a> <a th:if="${user}"
+							th:href="@{/user/__${user.id}__}"><span><img
+								class="avatar_icon" alt="" th:src="@{/__${user.avatar}__}"></span></a>
+						<a th:if="${user}" th:href="@{/login}" class="site-btn">Đăng
+							xuất</a>
+					</div>
+				</div>
+			</div>
+			<div id="mobile-menu-wrap"></div>
+		</div>
+	</header>
+
+	<footer class="footer" th:fragment="footer">
+		<div class="page-up">
+			<a href="#" id="scrollToTopButton"><span class="arrow_carrot-up"></span></a>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="footer__logo">
+						<a th:unless="${user}" th:href="@{/projek}"> <img
+							th:src="@{/img/logo.png}" alt="">
+						</a> <a th:if="${user}" th:href="@{/projek/__${user.id}__}"> <img
+							th:src="@{/img/logo.png}" alt="">
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<!-- <div class="footer__nav">
+                        <ul>
+                            <li class="active"><a th:href="@{/projek}">Homepage</a></li>
+                            <li><a th:href="@{/categories}">Categories</a></li>
+                            <li><a th:href="@{/blog}">Our Blog</a></li>
+                            <li><a href="#">Contacts</a></li>
+                        </ul>
+                    </div> -->
+				</div>
+				<div class="col-lg-3">
+					<p>Website đăng tải và chia sẻ hình ảnh</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<div class="search-model" th:fragment="search-model">
+		<div class="h-100 d-flex align-items-center justify-content-center">
+			<div class="search-close-switch">
+				<i class="icon_close"></i>
+			</div>
+			<form class="search-model-form">
+				<input type="text" id="search-input" placeholder="Search here.....">
+			</form>
+		</div>
+	</div>
+</body>
+</html>
